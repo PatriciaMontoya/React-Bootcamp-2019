@@ -10,21 +10,20 @@ class MovieDetail extends React.Component {
 
     componentDidMount() {
         const movieId = this.props.match.params.id
+        console.log(this.props)
         getMovieDetail(API_KEY, movieId).then((response) => { 
             this.setState(response.data)
-            console.log(response.data)
         }).catch((error) => console.log(error))
 
     }
 
     render() {
-        const { id, title, release_date, overview, poster_path, genres} = this.state
-        const releaseYear = release_date ? release_date.slice(0, 4) : ''
+        const { title, release_date, overview, poster_path, genres, tagline} = this.state
         const imageUrl = `https://image.tmdb.org/t/p/original${poster_path}` 
         return <div className='movie-container'>   
-        <h4>{id}</h4>
         <h1>{title}</h1>
-        <div>{releaseYear}</div>
+        <h4>{tagline}</h4>
+        <div>{release_date}</div>
         <div className='overview-container'>
             <img className='overview-img' src={imageUrl} alt='Movie' />
             <p>{overview}</p>

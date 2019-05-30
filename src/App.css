@@ -7,9 +7,14 @@
    border: 1px solid azure;
    border-radius: 8px;
    padding: 5px;
-   margin: 10px 5px;
+   margin: 20px 5px;
    display: inline;
    color: azure
+ }
+
+ .link:hover {
+   background-color: azure;
+   color: black;
  }
 
 .content {
