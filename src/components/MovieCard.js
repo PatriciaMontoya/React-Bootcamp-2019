@@ -29,7 +29,7 @@ class MovieCard extends React.Component {
     const { id, title, release_date, poster_path, overview, deleteMovie, genres} = this.props
     const releaseYear = release_date ? release_date.slice(0, 4) : ''
     const imageUrl = `https://image.tmdb.org/t/p/original${poster_path}` 
-    return <Link to={`/movie/${id}`} className="linkToMovie"><div className='movie-container'>   
+    return <div className='movie-container'>   
         <div className='favourite-container'>
             <button onClick={this.handleCheck} className='favourite-button'>
                 <span className={`fa fa-star favourite-star ${this.state.checked ? 'checked': ''}`}></span>
@@ -47,7 +47,8 @@ class MovieCard extends React.Component {
         <ul className='genreList'>
           {genres ? genres.map((genre) => <li className='genreItem' key={genre.id}>{genre.name}</li>) : null}
         </ul>
-    </div> </Link>
+        <Link to={`/movie/${id}`} className="link">Ver Detalles</Link>
+    </div> 
     }
 }
 

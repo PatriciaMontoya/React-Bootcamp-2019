@@ -2,8 +2,14 @@
    box-sizing: border-box;
  }
 
- .linkToMovie {
+ .link {
    text-decoration: none;
+   border: 1px solid azure;
+   border-radius: 8px;
+   padding: 5px;
+   margin: 10px 5px;
+   display: inline;
+   color: azure
  }
 
 .content {
