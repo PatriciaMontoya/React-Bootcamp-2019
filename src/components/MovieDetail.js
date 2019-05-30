@@ -1,5 +1,4 @@
 import React from 'react'
-import { API_KEY } from '../constants/movie'
 import { getMovieDetail } from '../api_requests/movie'
 import { Link } from "react-router-dom"
 
@@ -11,9 +10,11 @@ class MovieDetail extends React.Component {
     componentDidMount() {
         const movieId = this.props.match.params.id
         console.log(this.props)
-        getMovieDetail(API_KEY, movieId).then((response) => { 
-            this.setState(response.data)
-        }).catch((error) => console.log(error))
+        if(movieId) {
+            getMovieDetail(movieId).then((response) => { 
+                this.setState(response.data)
+            }).catch((error) => console.log(error))
+        }
 
     }
 

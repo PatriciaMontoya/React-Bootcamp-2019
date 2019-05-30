@@ -1,7 +1,6 @@
 import React from 'react'
 
 import moviesData from '../data/movies.json'
-import { API_KEY } from '../constants/movie'
 import { getMovies } from '../api_requests/movie'
 
 import MainLayout from '../layouts/MainLayout'
@@ -42,7 +41,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    getMovies(API_KEY)
+    getMovies()
     .then((result) => {this.setState({ movies : result.data.results })})
   }
 

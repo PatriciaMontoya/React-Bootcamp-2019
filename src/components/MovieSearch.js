@@ -1,5 +1,4 @@
 import React from 'react'
-import { API_KEY } from '../constants/movie'
 import { getMovie, getMovieDetail } from '../api_requests/movie'
 
 
@@ -17,9 +16,9 @@ class MovieSearch extends React.Component {
 
     handleSearch = (e) => {
         e.preventDefault()
-        getMovie(API_KEY, this.state.movieSearch)
+        getMovie(this.state.movieSearch)
         .then((response) => {
-            getMovieDetail(API_KEY, response.data.results[0].id)
+            getMovieDetail(response.data.results[0].id)
            .then((response) => {
                console.log(response.data)
                 this.props.onSearchMovie(response.data)
