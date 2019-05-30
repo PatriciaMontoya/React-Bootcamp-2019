@@ -1,12 +1,35 @@
-import React from 'react';
-import moviesData from '../data/movies.json'
-import MovieCard from '../components/MovieCard'
+import React from 'react'
+import axios from 'axios'
 
-const API_KEY = '298ad9ee38c9159771659fe5a01b1dc7'
+import moviesData from '../data/movies.json'
+import { API_KEY } from '../constants/movie'
+
+import MainLayout from '../layouts/MainLayout'
+import MovieCard from '../components/MovieCard'
+import MovieSearch from '../components/MovieSearch'
 
 class Home extends React.Component {
   state = {
    ...moviesData
+  }
+
+  addMovie = (movie) => {
+    const movies = this.state.movies
+    this.setState({movies: [...movies, movie] })
+  }
+
+  searchMovie = (movieDetail) => {
+    const movies = []
+    movies.push({
+      id: movieDetail.id,
+      title: movieDetail.title,
+      release_date: movieDetail.release_date,
+      poster_path: movieDetail.poster_path,
+      overview: movieDetail.overview,
+      genres: movieDetail.genres
+    })
+
+    this.setState({movies})
   }
 
   deleteMovie = (movieId) => {
@@ -19,20 +42,16 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
-    .then((res) => res.json())
-    .then((data) => {this.setState({ movies : data.results })})
+    axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`)
+    .then((result) => {this.setState({ movies : result.data.results })})
   }
 
     render() {
         const { movies } = this.state
-        const popularMovies = movies.slice(0,5)
-        return <div>
-        <h1 className='main-title'>Movie App</h1>
-        <div className='content'>
-          {popularMovies.map((movie) => <MovieCard deleteMovie={this.deleteMovie} key={movie.id} {...movie} />)}
-        </div>
-      </div>
+        return <MainLayout>
+                  <MovieSearch className='content' onSearchMovie={this.searchMovie}/>
+                  {movies.map((movie) => <MovieCard deleteMovie={this.deleteMovie} key={movie.id} {...movie} />)}
+              </MainLayout>
     }
 }
 
